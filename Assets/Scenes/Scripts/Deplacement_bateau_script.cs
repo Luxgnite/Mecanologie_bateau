@@ -46,14 +46,22 @@ public class Deplacement_bateau_script : MonoBehaviour /* script qui doit gérer
         Force_Du_Vent = Vent.GetComponent<Vent_Script>().Force_Du_Vent;             //Récupère la force du Vent
         Direction_Du_Vent = Vent.GetComponent<Vent_Script>().Direction_Du_Vent;     // récupère l'orientation en z du Vent
         Deplacement_Bateau_Void();
-        
-        
-        
-        if (Direction_Du_Vent - Orientation_Bateau.z > 0)
-        {
-            transform.eulerAngles = Orientation_Bateau;
-            Orientation_Bateau.z += Vitesse_De_Rotation_Bateau * Time.deltaTime;
 
+
+
+        if (Orientation_Bateau.z < 0)
+        {
+            if (Direction_Du_Vent - Orientation_Bateau.z > 0)
+            {
+                transform.eulerAngles = Orientation_Bateau;
+                Orientation_Bateau.z += Vitesse_De_Rotation_Bateau * Time.deltaTime;
+
+            }
+            else
+            {
+                transform.eulerAngles = Orientation_Bateau;
+                Orientation_Bateau.z -= Vitesse_De_Rotation_Bateau * Time.deltaTime;
+            }
         }
         if (Direction_Du_Vent - Orientation_Bateau.z < 0)
         {
