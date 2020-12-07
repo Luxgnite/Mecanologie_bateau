@@ -51,11 +51,11 @@ public class Deplacement_bateau_script : MonoBehaviour
         Orientation_Bateau = transform.eulerAngles; // permet de donner à Orientiatio_Bateau les valeurs de rotation du bateau
         Deplacement_Bateau = transform.position;
         Force_Vent = Vent.GetComponent<Vent_Script>().Force_Vent;
+        Orientation_Bateau_Empty = Bateau_Empty.transform.eulerAngles;
         
 
     }
 
-    // Update is called once per frame
     void Update()
     {
         Force_Vent = Vent.GetComponent<Vent_Script>().Force_Vent;             //Récupère la force du Vent
@@ -67,31 +67,10 @@ public class Deplacement_bateau_script : MonoBehaviour
         {
             Orientation_Bateau_Void();
         }
-        transform.eulerAngles = Orientation_Bateau;                                 // permet de modifier l'axe z du Bateau en fonction de l'orientation du vent
+        //transform.eulerAngles = Orientation_Bateau;                                 // permet de modifier l'axe z du Bateau en fonction de l'orientation du vent
+        Bateau_Empty.transform.eulerAngles = Orientation_Bateau_Empty;
 
 
-
-        /*if (Orientation_Bateau.z < 0)
-        {
-            if (Direction_Du_Vent - Orientation_Bateau.z > 0)
-            {
-                transform.eulerAngles = Orientation_Bateau;
-                Orientation_Bateau.z += Vitesse_De_Rotation_Bateau * Time.deltaTime;
-
-            }
-            else
-            {
-                transform.eulerAngles = Orientation_Bateau;
-                Orientation_Bateau.z -= Vitesse_De_Rotation_Bateau * Time.deltaTime;
-            }
-        }
-        if (Direction_Du_Vent - Orientation_Bateau.z < 0)
-        {
-            transform.eulerAngles = Orientation_Bateau;
-            Orientation_Bateau.z -= Vitesse_De_Rotation_Bateau * Time.deltaTime;
-
-        }*/
-        //Orientation_Bateau.z = Direction_Du_Vent;                                   // idem
 
 
 
@@ -101,16 +80,6 @@ public class Deplacement_bateau_script : MonoBehaviour
             Bateau_Empty.transform.position += transform.TransformDirection(Vector2.right) * Time.deltaTime * Vitesse_Du_Bateau;
         }
 
-
-        /*
-        if (Input.GetKey(KeyCode.Z))
-        {
-            Bateau_Empty.transform.position += transform.TransformDirection(Vector2.right)* Time.deltaTime * Vitesse_Du_Bateau;
-        }
-        if (Input.GetKey(KeyCode.S))
-        {
-            Bateau_Empty.transform.position += transform.TransformDirection(Vector2.left) * Time.deltaTime * Vitesse_Du_Bateau;
-        }*/
 
     }
 
@@ -122,11 +91,11 @@ public class Deplacement_bateau_script : MonoBehaviour
     {
         if (Difference_Orientation_Bateau_Gouvernail < 0)
         {
-            Orientation_Bateau.z += Vitesse_De_Rotation_Bateau * Time.deltaTime;
+            Orientation_Bateau_Empty.z += Vitesse_De_Rotation_Bateau * Time.deltaTime;
         }
         else
         {
-            Orientation_Bateau.z -= Vitesse_De_Rotation_Bateau * Time.deltaTime;
+            Orientation_Bateau_Empty.z -= Vitesse_De_Rotation_Bateau * Time.deltaTime;
 
         }
 

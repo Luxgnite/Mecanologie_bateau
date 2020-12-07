@@ -20,7 +20,7 @@ public class Voile_Script : MonoBehaviour
     void Start()
     {
         Vent = GameObject.Find("Vent");              //il faut dans la scène un GameObject "Vent" qui aura une direction et une force
-        Orientation_Voile = transform.rotation.eulerAngles;
+        Orientation_Voile = transform.rotation.eulerAngles.normalized;
     }
 
     // Update is called once per frame
@@ -34,11 +34,11 @@ public class Voile_Script : MonoBehaviour
         else Difference_Orientation_Voile = Mathf.Abs(Vent.GetComponent<Vent_Script>().Orientation_Vent.z / Orientation_Voile.z);
 
 
-        if (Input.GetKey(KeyCode.Keypad9))
+        if (Input.GetKey(KeyCode.Keypad9) && Orientation_Voile.z < 90f)
         {
             Orientation_Voile.z += Vitesse_Rotation_Voile * Time.deltaTime;
         }
-        if (Input.GetKey(KeyCode.Keypad6))
+        if (Input.GetKey(KeyCode.Keypad6) && Orientation_Voile.z > -90f)
         {
             Orientation_Voile.z -= Vitesse_Rotation_Voile * Time.deltaTime;
         }

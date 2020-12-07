@@ -151,7 +151,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 824983981}
-  - {fileID: 2121823722}
   - {fileID: 1363232484}
   m_Father: {fileID: 0}
   m_RootOrder: 2
@@ -188,6 +187,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Vitesse_Du_Bateau: 0
   Vitesse_De_Rotation_Bateau: 50
+  Orientation_Bateau: {x: 0, y: 0, z: 90}
 --- !u!212 &824983980
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -249,7 +249,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.1, y: 0.1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 2121823722}
   m_Father: {fileID: 297189933}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
@@ -334,7 +335,7 @@ Transform:
   m_LocalScale: {x: 0.10000001, y: 0.10000001, z: 1}
   m_Children: []
   m_Father: {fileID: 297189933}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 1}
 --- !u!114 &1363232485
 MonoBehaviour:
@@ -525,13 +526,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1968471783}
-  m_LocalRotation: {x: 0, y: 0, z: 0.008726558, w: 0.999962}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 5.13, y: -0.93, z: 0}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2121823720
 GameObject:
   m_ObjectHideFlags: 0
@@ -608,12 +609,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2121823720}
-  m_LocalRotation: {x: 0.7071068, y: 0.7071068, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: 1.5000002, z: 0}
-  m_LocalScale: {x: 0.09999998, y: 0.09999998, z: 0.09999998}
+  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
+  m_LocalPosition: {x: -15, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 0.1}
   m_Children: []
-  m_Father: {fileID: 297189933}
-  m_RootOrder: 1
+  m_Father: {fileID: 824983981}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 90}
 --- !u!114 &2121823723
 MonoBehaviour:
