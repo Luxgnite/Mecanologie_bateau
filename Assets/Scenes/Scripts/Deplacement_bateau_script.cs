@@ -48,10 +48,10 @@ public class Deplacement_bateau_script : MonoBehaviour
 
 
 
-        Orientation_Bateau = transform.eulerAngles; // permet de donner à Orientiatio_Bateau les valeurs de rotation du bateau
+        Orientation_Bateau = transform.localEulerAngles; // permet de donner à Orientiatio_Bateau les valeurs de rotation du bateau
         Deplacement_Bateau = transform.position;
         Force_Vent = Vent.GetComponent<Vent_Script>().Force_Vent;
-        Orientation_Bateau_Empty = Bateau_Empty.transform.eulerAngles;
+        Orientation_Bateau_Empty = Bateau_Empty.transform.localEulerAngles;
         
 
     }
@@ -67,11 +67,18 @@ public class Deplacement_bateau_script : MonoBehaviour
         {
             Orientation_Bateau_Void();
         }
-        //transform.eulerAngles = Orientation_Bateau;                                 // permet de modifier l'axe z du Bateau en fonction de l'orientation du vent
-        Bateau_Empty.transform.eulerAngles = Orientation_Bateau_Empty;
+        transform.localEulerAngles = Orientation_Bateau;                                 // permet de modifier l'axe z du Bateau en fonction de l'orientation du vent
+        Bateau_Empty.transform.localEulerAngles = Orientation_Bateau_Empty;
 
 
-
+        if(Bateau_Empty.transform.localEulerAngles.z > 360f)
+        {
+            Orientation_Bateau_Empty.z = 0f;
+        }
+        if (Bateau_Empty.transform.localEulerAngles.z < 0f)
+        {
+            Orientation_Bateau_Empty.z = 360f;
+        }
 
 
 
@@ -89,14 +96,14 @@ public class Deplacement_bateau_script : MonoBehaviour
     }
     private void Orientation_Bateau_Void()
     {
-        if (Difference_Orientation_Bateau_Gouvernail < 0)
+        if (Difference_Orientation_Bateau_Gouvernail > 0)
         {
-            Orientation_Bateau_Empty.z += Vitesse_De_Rotation_Bateau * Time.deltaTime;
+            Orientation_Bateau_Empty.z += Vitesse_De_Rotation_Bateau * Time.deltaTime * Vitesse_Du_Bateau;
         }
         else
         {
-            Orientation_Bateau_Empty.z -= Vitesse_De_Rotation_Bateau * Time.deltaTime;
-
+            Orientation_Bateau_Empty.z -= Vitesse_De_Rotation_Bateau * Time.deltaTime * Vitesse_Du_Bateau;
+            
         }
 
     }

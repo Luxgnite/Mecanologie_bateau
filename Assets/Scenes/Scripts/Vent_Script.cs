@@ -19,7 +19,7 @@ public class Vent_Script : MonoBehaviour /* Script qui gère la force et la dire
     void Start()
     {
         GameObject.Find("Bateau");
-        Orientation_Vent = transform.eulerAngles;
+        Orientation_Vent = transform.localEulerAngles;
     }
 
     // Update is called once per frame
@@ -41,18 +41,18 @@ public class Vent_Script : MonoBehaviour /* Script qui gère la force et la dire
 
 
 
-        if (Orientation_Vent.z < -180)
+        if (Orientation_Vent.z < 0)
+        {
+            Orientation_Vent.z = 360f;
+        }
+        if (Orientation_Vent.z > 360f)
         {
             Orientation_Vent.z = 0f;
         }
-        if (Orientation_Vent.z > 180f)
-        {
-            Orientation_Vent.z = 0f;
-        }
 
 
 
 
-        transform.eulerAngles = Orientation_Vent;
+        transform.localEulerAngles = Orientation_Vent;
     }
 }

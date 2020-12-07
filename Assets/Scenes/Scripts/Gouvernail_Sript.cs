@@ -19,37 +19,37 @@ public class Gouvernail_Sript : MonoBehaviour
     {
         Bateau = GameObject.Find("Bateau");
         Bateau_Empty = GameObject.Find("Bateau_Empty");
-        Orientation_Bateau_Empty = Bateau_Empty.transform.eulerAngles;
-        Orientation_Gouvernail = transform.rotation.eulerAngles;
+        Orientation_Bateau_Empty = Bateau_Empty.transform.localEulerAngles;
+        Orientation_Gouvernail = transform.localEulerAngles;
 
     }
 
     // Update is called once per frame
     void Update()
     {        
-        transform.eulerAngles = Orientation_Gouvernail;
-        if (Input.GetKey(KeyCode.Z) && Orientation_Gouvernail.z < 60f)
+        transform.localEulerAngles = Orientation_Gouvernail;
+        if (Input.GetKey(KeyCode.Z) && Orientation_Gouvernail.z < 30f)
         {
             Orientation_Gouvernail.z += Vitesse_Rotation_Gouvernail * Time.deltaTime;
         }
-        if (Input.GetKey(KeyCode.S) && Orientation_Gouvernail.z > -60f)
+        if (Input.GetKey(KeyCode.S) && Orientation_Gouvernail.z > -30f)
         {
             Orientation_Gouvernail.z -= Vitesse_Rotation_Gouvernail * Time.deltaTime;
         }
 
-        if (Orientation_Gouvernail.z != Bateau_Empty.transform.rotation.z)
+        if (!Input.GetKey(KeyCode.Z) && !Input.GetKey(KeyCode.S) && Orientation_Gouvernail.z != 0f)
         {
-            //Orientation_Gouvernail_Void();
+            Orientation_Gouvernail_Void();
         }
 
     }
 
     public void Orientation_Gouvernail_Void()
     {
-        if (Bateau_Empty.transform.rotation.z - Orientation_Gouvernail.z < 90f)
+        if (Orientation_Gouvernail.z > 0f)
         {
-            Orientation_Gouvernail.z -= Vitesse_Rotation_Gouvernail * Time.deltaTime / 2;
-        } else Orientation_Gouvernail.z += Vitesse_Rotation_Gouvernail * Time.deltaTime / 2;
+            Orientation_Gouvernail.z -= Vitesse_Rotation_Gouvernail * Time.deltaTime * 2;
+        } else Orientation_Gouvernail.z += Vitesse_Rotation_Gouvernail * Time.deltaTime * 2;
 
 
     }
