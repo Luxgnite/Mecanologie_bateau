@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/ScenesTest/Taches/Voile.unity
     guid: da2f70531f29e4f468a25f88cf0cf3b5
+  - enabled: 1
+    path: Assets/Scenes/ScenesTest/Taches/Proue.unity
+    guid: a84c5dbd7f3422d44b4ffaca08ee2a87
   m_configObjects: {}
