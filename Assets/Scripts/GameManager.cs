@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -13,7 +14,9 @@ public class GameManager : MonoBehaviour
 
     //Lieu dans lequel le joueur se situe
     public Lieu lieuJoueur;
-    //Getter - Setter pour définir le lieu du joueur
+    /// <summary>
+    /// Getter - Setter pour définir le lieu du joueur
+    /// </summary>
     public Lieu LieuJoueur
     {
         get
@@ -30,10 +33,11 @@ public class GameManager : MonoBehaviour
                 lieuJoueur = value;
                 //Envoi de l'événement pour signaler un changement de lieu
                 OnChangementLieu(lieuJoueur, temp);
+                StartCoroutine(AfficherAction(lieuJoueur.nomLieu));
             }    
         }
     }
-
+    
     private void Awake()
     {
         //Mise en place du pattern Singleton
@@ -41,11 +45,29 @@ public class GameManager : MonoBehaviour
             _instance = this;
         else if (_instance != this)
             Destroy(gameObject);
+
+        DontDestroyOnLoad(this);
+
     }
 
-    // Update is called once per frame
-    void Update()
+    //Coroutine pour effectuer afficherAction avec du délai
+    IEnumerator AfficherAction(string nomAction)
     {
-        
+        yield return new WaitForSeconds(1f);
+        afficherAction(nomAction);
+    }
+
+    //Afficher l'action à effectué sur le lieu sélectionné
+    void afficherAction(string nomTache)
+    {
+        SceneManager.LoadScene("Scenes/ScenesTest/Taches/" + nomTache);
+    }
+
+    /// <summary>
+    /// Afficher la scène de la carte du bateau
+    /// </summary>
+    public static void afficherCarteBateau()
+    {
+        SceneManager.LoadScene("Scenes/ScenesTest/Deplacement_personnage");
     }
 }

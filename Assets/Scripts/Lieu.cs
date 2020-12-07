@@ -5,6 +5,7 @@ using UnityEngine;
 public class Lieu : MonoBehaviour
 {
     public string nomLieu;
+    public Tache tache;
 
     //Lorsque le joueur clique sur une représentation de lieu...
     private void OnMouseDown()
