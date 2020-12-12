@@ -3,24 +3,28 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// Gestionnaire de la logique du jeu. Il est le garant de la cohérence du coeur de la logique,
+/// accessible depuis n'importe quelle scène (Singleton).
+/// </summary>
 public class GameManager : MonoBehaviour
 {
     //Référence à l'instance Singleton actuelle
     public static GameManager _instance;
 
     //Événement lors d'un changement de lieu
-    public delegate void LieuAction(Lieu nouveauLieu, Lieu ancienLieu);
+    public delegate void LieuAction(string nouveauLieu, string ancienLieu);
     public static event LieuAction OnChangementLieu;
 
     //Animator de l'objet utilisé pour faire des fade in/out 
     public Animator fadeAnimator;
 
     //Lieu dans lequel le joueur se situe
-    public Lieu lieuJoueur;
+    public string lieuJoueur;
     /// <summary>
     /// Getter - Setter pour définir le lieu du joueur
     /// </summary>
-    public Lieu LieuJoueur
+    public string LieuJoueur
     {
         get
         {
@@ -31,12 +35,12 @@ public class GameManager : MonoBehaviour
             if(value != null)
             {
                 //Stock l'ancien lieu dans une variable temporaire
-                Lieu temp = lieuJoueur;
+                string temp = lieuJoueur;
                 //Attribution de la nouvelle valeur du lieu du joueur
                 lieuJoueur = value;
                 //Envoi de l'événement pour signaler un changement de lieu
                 OnChangementLieu(lieuJoueur, temp);
-                afficherAction(lieuJoueur.nomLieu);
+                AfficherAction(lieuJoueur);
             }    
         }
     }
@@ -61,17 +65,17 @@ public class GameManager : MonoBehaviour
     }
 
     //Afficher l'action à effectué sur le lieu sélectionné
-    void afficherAction(string nomTache)
+    void AfficherAction(string nomTache)
     {
-        chargerScene("Scenes/ScenesTest/Taches/" + nomTache);
+        ChargerScene("Scenes/ScenesTest/Taches/" + nomTache);
     }
 
     /// <summary>
     /// Afficher la scène de la carte du bateau
     /// </summary>
-    public void afficherCarteBateau()
+    public void AfficherCarteBateau()
     {
-        chargerScene("Scenes/ScenesTest/Deplacement_personnage");
+        ChargerScene("Scenes/ScenesTest/Deplacement_personnage");
     }
     
     /// <summary>
@@ -79,7 +83,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     /// <param name="chemin">Chemin vers la scène à charger. Ex : "Scenes/Scene1" </param>
     /// <param name="delaiLatence">Temps en seconde de la latence. Si non spécifié, il est égal à 1f </param>
-    public void chargerScene(string chemin, float delaiLatence = 1f)
+    public void ChargerScene(string chemin, float delaiLatence = 1f)
     {
         StartCoroutine(ChargerSceneDelai(chemin, delaiLatence));
     }
@@ -87,6 +91,7 @@ public class GameManager : MonoBehaviour
     //Coroutine pour effectuer charger une scène avec du délai
     IEnumerator ChargerSceneDelai(string chemin, float delaiLatence)
     {
+        //Si le résultat est négatif, alors le yield se fait immédiatement
         yield return new WaitForSeconds(delaiLatence-1);
         fadeAnimator.SetTrigger("Start");
         yield return new WaitForSeconds(1);
