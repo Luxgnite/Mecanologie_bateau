@@ -6,6 +6,21 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
+    path: Assets/Scenes/ScenesTest/SampleScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/ScenesTest/Deplacement_personnage.unity
+    guid: 99294eb76f1d8fb42bbd5cd205027282
+  - enabled: 1
+    path: Assets/Scenes/ScenesTest/Taches/Cabine.unity
+    guid: bb87c1702de4deb4bba22b2d836d63a2
+  - enabled: 1
+    path: Assets/Scenes/ScenesTest/Taches/Gouvernail.unity
+    guid: 6a714bac39a98a142923b48e07465b2e
+  - enabled: 1
+    path: Assets/Scenes/ScenesTest/Taches/Voile.unity
+    guid: da2f70531f29e4f468a25f88cf0cf3b5
+  - enabled: 1
+    path: Assets/Scenes/ScenesTest/Taches/Proue.unity
+    guid: a84c5dbd7f3422d44b4ffaca08ee2a87
   m_configObjects: {}
