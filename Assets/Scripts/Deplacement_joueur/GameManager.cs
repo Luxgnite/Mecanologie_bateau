@@ -16,11 +16,11 @@ public class GameManager : MonoBehaviour
     public delegate void LieuAction(string nouveauLieu, string ancienLieu);
     public static event LieuAction OnChangementLieu;
 
-    //Animator de l'objet utilisé pour faire des fade in/out 
+    [Header("Animator de l'objet utilisé pour faire des fade in/out")] 
     public Animator fadeAnimator;
-
-    //Lieu dans lequel le joueur se situe
+    [Header("Lieu dans lequel le joueur se situe")]
     public string lieuJoueur;
+
     /// <summary>
     /// Getter - Setter pour définir le lieu du joueur
     /// </summary>
@@ -58,16 +58,24 @@ public class GameManager : MonoBehaviour
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
-    //Lorsqu'une scène est chargée
+    /// <summary>
+    /// Cherche l'élément Fade lors du chargement d'une scène
+    /// </summary>
+    /// <param name="scene"></param>
+    /// <param name="mode"></param>
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         fadeAnimator = GameObject.Find("Fade").GetComponent<Animator>();
     }
 
-    //Afficher l'action à effectué sur le lieu sélectionné
-    void AfficherAction(string nomTache)
+    /// <summary>
+    /// Afficher l'action à effectué sur le lieu sélectionné
+    /// </summary>
+    /// <param name="nomAction">Le nom de l'action à effectuer.
+    /// Doit corresponde à un nom de scène, qui nécessite d'être placée dans 'ScenesTest\Taches'</param>
+    void AfficherAction(string nomAction)
     {
-        ChargerScene("Scenes/ScenesTest/Taches/" + nomTache);
+        ChargerScene("Scenes/ScenesTest/Taches/" + nomAction);
     }
 
     /// <summary>
@@ -88,7 +96,12 @@ public class GameManager : MonoBehaviour
         StartCoroutine(ChargerSceneDelai(chemin, delaiLatence));
     }
 
-    //Coroutine pour effectuer charger une scène avec du délai
+    /// <summary>
+    /// Pour charger une scène avec du délai
+    /// </summary>
+    /// <param name="chemin">Chemin vers la scène</param>
+    /// <param name="delaiLatence">Temps de latence avant le chargement de la scène</param>
+    /// <returns></returns>
     IEnumerator ChargerSceneDelai(string chemin, float delaiLatence)
     {
         //Si le résultat est négatif, alors le yield se fait immédiatement

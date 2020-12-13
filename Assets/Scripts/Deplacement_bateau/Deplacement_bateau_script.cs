@@ -54,7 +54,7 @@ public class Deplacement_bateau_script : MonoBehaviour
 
         Deplacement_Bateau_Void();
         
-        Difference_Orientation_Bateau_Gouvernail = Orientation_Bateau.z - Gouvernail.GetComponent<Gouvernail_Sript>().Orientation_Gouvernail.z;
+        Difference_Orientation_Bateau_Gouvernail = Orientation_Bateau.z - Gouvernail.GetComponent<GouvernailManager>().Orientation_Gouvernail.z;
         if (Difference_Orientation_Bateau_Gouvernail != 0)
             Orientation_Bateau_Void();
 
