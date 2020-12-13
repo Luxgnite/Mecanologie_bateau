@@ -11,11 +11,12 @@ public class Voile_Script : MonoBehaviour
 
     public Vector3 Orientation_Voile;
     public Vector3 Orientation_Bateau_Empty;
-    private Vector3 Orientation_Vent;
+    public Vector3 Orientation_Vent;
 
 
     public float Vitesse_Rotation_Voile = 5;
     public float Difference_Orientation_Voile;
+    public float Difference_Vent_Bateau_Empty;
     public float Force_Voile;
 
     private float x;
@@ -38,9 +39,6 @@ public class Voile_Script : MonoBehaviour
         transform.localEulerAngles = Orientation_Voile;
 
 
-
-
-
         //Debug.Log("La différence de degrés entre la voile et le vent est de : " + Difference_Orientation_Voile);
 
 
@@ -51,8 +49,45 @@ public class Voile_Script : MonoBehaviour
     }
     public void Force_Voile_Void()
     {
-        Difference_Orientation_Voile =  Mathf.Abs(Orientation_Voile.z) - Orientation_Vent.z;
-        Force_Voile = Mathf.Abs(Difference_Orientation_Voile / 90);
+
+        if (Mathf.Abs(Orientation_Voile.z - Difference_Vent_Bateau_Empty) > 180)
+        {
+            Difference_Orientation_Voile = Mathf.Abs(Orientation_Voile.z - Difference_Vent_Bateau_Empty) - 360;
+        }
+        else Difference_Orientation_Voile = Mathf.Abs(Orientation_Voile.z - Difference_Vent_Bateau_Empty);
+
+
+
+
+        //Difference_Vent_Bateau_Empty = Orientation_Vent.z - Orientation_Bateau_+Empty.z;
+
+        if (Orientation_Vent.z - Orientation_Bateau_Empty.z > 360)
+        {
+            Difference_Vent_Bateau_Empty = Orientation_Vent.z - Orientation_Bateau_Empty.z - 360;
+        }
+        if (Orientation_Vent.z - Orientation_Bateau_Empty.z < 0)
+        {
+            Difference_Vent_Bateau_Empty = Orientation_Vent.z - Orientation_Bateau_Empty.z + 360;
+        }
+        if (Orientation_Vent.z - Orientation_Bateau_Empty.z < 360 && Orientation_Vent.z - Orientation_Bateau_Empty.z > 0)
+        {
+            Difference_Vent_Bateau_Empty = Orientation_Vent.z - Orientation_Bateau_Empty.z;
+        }
+
+
+
+        if (Mathf.Abs(Difference_Orientation_Voile) < 90f)
+        {
+            Force_Voile = Mathf.Abs(Difference_Orientation_Voile) / 90 * Vent.GetComponent<Vent_Script>().Force_Vent;
+        }
+        if (Mathf.Abs(Difference_Orientation_Voile) > 90f)
+        {
+            Force_Voile = Mathf.Abs(Mathf.Abs(Difference_Orientation_Voile) - 180) / 90 * Vent.GetComponent<Vent_Script>().Force_Vent;
+        }
+
+
+        //Difference_Orientation_Voile =  Mathf.Abs(Orientation_Voile.z) - Orientation_Vent.z;
+        //Force_Voile = Mathf.Abs(Difference_Orientation_Voile / 90);
     }
     /*public void Force_Voile_Void()
     {

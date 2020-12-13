@@ -71,11 +71,11 @@ public class Deplacement_bateau_script : MonoBehaviour
         Bateau_Empty.transform.localEulerAngles = Orientation_Bateau_Empty;
 
 
-        if(Bateau_Empty.transform.localEulerAngles.z > 360f)
+        if(Bateau_Empty.transform.localEulerAngles.z > 360)
         {
             Orientation_Bateau_Empty.z = 0f;
         }
-        if (Bateau_Empty.transform.localEulerAngles.z < 0f)
+        if (Bateau_Empty.transform.localEulerAngles.z < 0)
         {
             Orientation_Bateau_Empty.z = 360f;
         }

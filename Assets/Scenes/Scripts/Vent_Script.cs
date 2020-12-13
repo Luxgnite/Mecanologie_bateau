@@ -14,6 +14,7 @@ public class Vent_Script : MonoBehaviour /* Script qui gère la force et la dire
     private float temps;
     private float Vitesse_Variation;
     private float Angle_Variation;
+    private float Nouvel_Angle;
 
     private bool Changement;
 
@@ -50,16 +51,20 @@ public class Vent_Script : MonoBehaviour /* Script qui gère la force et la dire
             Orientation_Vent.z -= Vitesse_Rotation_Vent * Time.deltaTime;
         }
 
+        if (Changement)
+        {
+            StartCoroutine(Variation_00(Nouvel_Angle));
+        }
+
         transform.localEulerAngles = Orientation_Vent;
     }
 
-    public void Orientation_Variation_Vent(float Orientation, float Variation, float compteur)
+    public void Orientation_Variation_Vent(float Orientation, float Variation, float compteur, float forceVent)
     {
+
         Changement = true;
-
-        StartCoroutine(Variation_00(Orientation));
-
-
+        Force_Vent = forceVent;
+        Nouvel_Angle = Orientation;
 
         Vitesse_Variation = compteur;
         Angle_Variation = Variation;
@@ -67,8 +72,9 @@ public class Vent_Script : MonoBehaviour /* Script qui gère la force et la dire
 
     }
 
-    IEnumerator Variation_00(float Orientation)
+    IEnumerator Variation_00(float Orientation) // premiere Coroutine qui s'exécute, permet de changer l'orientation globale du vent
     {
+        Changement = false;
         if (Orientation_Vent.z > Orientation)
         {
             while (Orientation_Vent.z > Orientation)
@@ -85,18 +91,18 @@ public class Vent_Script : MonoBehaviour /* Script qui gère la force et la dire
                 yield return new WaitForSeconds(0.01f);
             }
         }
-        StartCoroutine(Variation_01(Angle_Variation));
+        StartCoroutine(Variation_01(Vitesse_Variation));
     }
 
-    IEnumerator Variation_01(float compteur)
+    IEnumerator Variation_01(float compteur) // deuxième coroutine, change l'orientation du vent en fonction de l'amplitude donner et lance la troisième coroutine
     {
-        Changement = false;
+
         temps = compteur;
         while (temps > 0)
         {
 
             temps--;
-            yield return new WaitForSeconds(0.05f);
+            yield return new WaitForSeconds(0.01f);
             Orientation_Vent.z += Vitesse_Rotation_Vent;
         }
         if (temps == 0 && !Changement)
@@ -104,19 +110,19 @@ public class Vent_Script : MonoBehaviour /* Script qui gère la force et la dire
             StartCoroutine(Variation_02(Angle_Variation));
         }
     }
-    IEnumerator Variation_02(float compteur)
+    IEnumerator Variation_02(float compteur)// troisième coroutine, change l'orientation du vent à l'inverse de la deuxième et la relance
     {
         temps = compteur;
         while (temps > 0)
         {
 
             temps--;
-            yield return new WaitForSeconds(0.05f);
+            yield return new WaitForSeconds(0.01f);
             Orientation_Vent.z -= Vitesse_Rotation_Vent;
         }
         if (temps == 0 && !Changement)
         {
-            StartCoroutine(Variation_01(Angle_Variation));
+            StartCoroutine(Variation_01(Vitesse_Variation));
         }
     }
 }
