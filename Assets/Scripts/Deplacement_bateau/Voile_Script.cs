@@ -41,14 +41,14 @@ public class Voile_Script : MonoBehaviour
 
 
 
-        if (Input.GetKey(KeyCode.Keypad9) && Orientation_Voile.z < 90f)
+        /*if (Input.GetKey(KeyCode.Keypad9) && Orientation_Voile.z < 90f)
         {
             Orientation_Voile.z += Vitesse_Rotation_Voile * Time.deltaTime;
         }
         if (Input.GetKey(KeyCode.Keypad6) && Orientation_Voile.z > -90f)
         {
             Orientation_Voile.z -= Vitesse_Rotation_Voile * Time.deltaTime;
-        }
+        }*/
 
         transform.localEulerAngles = Orientation_Voile;
 

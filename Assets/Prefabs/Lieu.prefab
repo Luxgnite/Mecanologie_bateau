@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1706851305815355917}
   - component: {fileID: 1706851305815355914}
   - component: {fileID: 1706851305815355916}
-  - component: {fileID: 4666997541351969605}
+  - component: {fileID: 6926432449559406885}
   m_Layer: 0
   m_Name: Lieu
   m_TagString: Untagged
@@ -26,7 +26,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1706851305815355915}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -5.507516, y: -2.3201308, z: 5.2689986}
   m_LocalScale: {x: 0.032381956, y: 0.032381956, z: 0.032381956}
   m_Children: []
@@ -96,17 +96,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 403d2b9e254a9244e89ea2a9a9a7ea53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nomLieu: Lieu
---- !u!65 &4666997541351969605
-BoxCollider:
+  nomLieu: Gouvernail
+--- !u!61 &6926432449559406885
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1706851305815355915}
+  m_Enabled: 1
+  m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 27.069998, y: 24.320704}
+    newSize: {x: 27.069998, y: 24.320704}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 27.069998, y: 24.320704, z: 0.2}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 27.069998, y: 24.320704}
+  m_EdgeRadius: 0
