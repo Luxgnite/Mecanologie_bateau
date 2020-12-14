@@ -69,8 +69,10 @@ public class SequenceInputController : MonoBehaviour
     {
         //Changer le GetAxis pour assurer que c'est bien le stick qui est utilisé
         Vector2 stickPos = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        Debug.Log(stickPos);
 
         regionActuelle = ObtenirStickRegion(stickPos);
+        //Debug.Log(regionActuelle);
         //Si jamais la position actuelle est différente de la précédente, on enclenche la vérification des séquences
         if (regionActuelle != regionPrecedente)
         {

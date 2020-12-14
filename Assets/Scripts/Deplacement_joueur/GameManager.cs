@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour
 {
     //Référence à l'instance Singleton actuelle
     public static GameManager _instance;
+    private GouvernailManager gouvernailManager;
+    public GouvernailManager GouvernailManager { get { return _instance.gouvernailManager; } }
 
     //Événement lors d'un changement de lieu
     public delegate void LieuAction(string nouveauLieu, string ancienLieu);
@@ -56,6 +58,11 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(this);
 
         SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void Start()
+    {
+        gouvernailManager = GetComponentInChildren<GouvernailManager>();
     }
 
     /// <summary>
