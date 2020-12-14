@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 
 /* Script se chargeant d'identifier les mouvements de stick pour agir en conséquence.
  * Principalement basé sur les scripts suivants : 
@@ -36,6 +37,7 @@ public class SequenceInputController : MonoBehaviour
     [Header("Marge de temps laissée pour que la séquence soit considérée valide")]
     public float margeTempsSequence = 0.3f;
 
+    PlayerControls controls;
     //StickRegion enregistrée à la dernière Update
     private StickRegion regionActuelle;
     //StickRegion enregistrée à cette Update
@@ -44,10 +46,36 @@ public class SequenceInputController : MonoBehaviour
     private List<Sequence> sequencesActuelles = new List<Sequence>();
     //Minuteur pour la marge de temps accordées aux séquences
     private float margeTemps;
+    //Stock les valeurs du sticks Gauche;
+    private Vector2 stickPos;
+
+    private void Awake()
+    {
+        controls = new PlayerControls();
+
+        /*controls.Gouvernail.RotateBarre.performed += ctx => stickPos = ctx.ReadValue<Vector2>();
+        controls.Gouvernail.RotateBarre.canceled += ctx => stickPos = Vector2.zero;*/
+        controls.Gouvernail.Message.performed += ctx => OnMessage();
+    }
 
     private void Start()
     {
         EcouterSequences();
+    }
+
+    void OnMessage()
+    {
+        Debug.Log("Key pressed!");
+    }
+
+    void OnEnable()
+    {
+        controls.Gouvernail.Enable();
+    }
+
+    void OnDisable()
+    {
+        controls.Gouvernail.Disable();
     }
 
     /// <summary>
@@ -67,12 +95,11 @@ public class SequenceInputController : MonoBehaviour
 
     private void Update()
     {
-        //Changer le GetAxis pour assurer que c'est bien le stick qui est utilisé
-        Vector2 stickPos = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-        Debug.Log(stickPos);
+        stickPos = controls.Gouvernail.RotateBarre.ReadValue<Vector2>();
+        //Debug.Log(stickPos);
 
         regionActuelle = ObtenirStickRegion(stickPos);
-        //Debug.Log(regionActuelle);
+        Debug.Log(regionActuelle);
         //Si jamais la position actuelle est différente de la précédente, on enclenche la vérification des séquences
         if (regionActuelle != regionPrecedente)
         {

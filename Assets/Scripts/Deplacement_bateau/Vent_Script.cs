@@ -27,7 +27,7 @@ public class Vent_Script : MonoBehaviour /* Script qui gère la force et la dire
     {
         //Direction_Vent = transform.rotation.eulerAngles.z;
 
-        if (Input.GetKey(KeyCode.KeypadPlus))
+        /*if (Input.GetKey(KeyCode.KeypadPlus))
 
         {
             Orientation_Vent.z += Vitesse_Rotation_Vent *Time.deltaTime;
@@ -37,7 +37,7 @@ public class Vent_Script : MonoBehaviour /* Script qui gère la force et la dire
 
         {
             Orientation_Vent.z -= Vitesse_Rotation_Vent * Time.deltaTime;
-        }
+        }*/
 
 
 

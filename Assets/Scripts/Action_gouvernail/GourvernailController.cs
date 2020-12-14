@@ -14,9 +14,10 @@ public class GourvernailController : MonoBehaviour
 
     public void rotationGauche()
     {
-        Debug.Log("A Tribord!");
+        Debug.Log("A Babord!");
         GameManager._instance.GouvernailManager.TournerGaucheGouvernail(pasRotationGouvernail);
     }
 
+    //Juste pour la démo
 
 }

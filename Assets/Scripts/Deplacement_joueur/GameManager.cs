@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
 /// <summary>
 /// Gestionnaire de la logique du jeu. Il est le garant de la cohérence du coeur de la logique,

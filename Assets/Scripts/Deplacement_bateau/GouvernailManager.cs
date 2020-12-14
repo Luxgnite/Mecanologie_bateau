@@ -11,7 +11,7 @@ public class GouvernailManager : MonoBehaviour
     GameObject Bateau;
     GameObject Bateau_Empty;
     //Angle que le gourvernail doit effectuer
-    private float angleATourner;
+    public float angleATourner;
 
     // Start is called before the first frame update
     void Start()
@@ -27,17 +27,23 @@ public class GouvernailManager : MonoBehaviour
     void Update()
     {        
 
-        if (Input.GetKey(KeyCode.Z))
+        /*if (Input.GetKey(KeyCode.Z))
             TournerGaucheGouvernail();
         if (Input.GetKey(KeyCode.S))
-            TournerDroiteGouvernail();
-        if (!Input.GetKey(KeyCode.Z) && !Input.GetKey(KeyCode.S) && Orientation_Gouvernail.z != 0f)
+            TournerDroiteGouvernail();*/
+        if (/*!Input.GetKey(KeyCode.Z) && !Input.GetKey(KeyCode.S)*/ angleATourner == 0 && Orientation_Gouvernail.z != 0f)
             Orientation_Gouvernail_Void();
 
         //Lorsque l'on veut faire tourner d'un certain angle le gouvernail à gauche
         if (angleATourner > 0f)
         {
-            angleATourner -= TournerGaucheGouvernail();
+            float distance = TournerGaucheGouvernail();
+            
+            if (distance == 0)
+                angleATourner = 0;
+            else
+                angleATourner -= distance;
+
             if (angleATourner < 0)
                 angleATourner = 0;
         }
@@ -45,7 +51,13 @@ public class GouvernailManager : MonoBehaviour
         //Lorsque l'on veut faire tourner d'un certain angle le gouvernail à droite
         if (angleATourner < 0f)
         {
-            angleATourner -= TournerDroiteGouvernail();
+            float distance = TournerDroiteGouvernail();
+
+            if (distance == 0)
+                angleATourner = 0;
+            else
+                angleATourner += TournerDroiteGouvernail();
+
             if (angleATourner > 0)
                 angleATourner = 0;
         }
