@@ -112,6 +112,90 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Debug",
+            "id": "37f4b3eb-133f-45b2-9764-11494eaf4f7a",
+            "actions": [
+                {
+                    "name": "Vent_Monte",
+                    "type": "Button",
+                    "id": "f3d3ace0-759f-4638-9616-0996bfb45a08",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Vent_Baisse",
+                    "type": "Button",
+                    "id": "b7ead1ce-2617-4a8f-96e5-637acb9d2198",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Voile_Droite",
+                    "type": "Button",
+                    "id": "23c52723-feb2-4fe7-a837-53da4b3f1d8c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Voile_Gauche",
+                    "type": "Button",
+                    "id": "d03a30ab-46ef-4a0a-bb95-08e511d9e630",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "0de3cfcc-fc37-4c17-aa4a-172663544893",
+                    "path": "<Keyboard>/numpadPlus",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Vent_Monte",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "28545400-2b8a-4b1f-8e03-70282fe88c9a",
+                    "path": "<Keyboard>/numpad6",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Voile_Droite",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "678c45a8-f659-4c82-ade8-39cc83d63c02",
+                    "path": "<Keyboard>/numpad9",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Voile_Gauche",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "516fba90-213d-44ba-a3c9-596b70ed1385",
+                    "path": "<Keyboard>/numpadMinus",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Vent_Baisse",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []

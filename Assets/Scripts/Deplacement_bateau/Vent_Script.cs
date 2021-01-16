@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 /** Script qui gère la force et la direction du vent
  * mode d'emploi:
@@ -23,6 +24,23 @@ public class Vent_Script : MonoBehaviour
     public bool Coroutine_01_Active = false;
     public bool Coroutine_02_Active = false;
 
+    PlayerControls controls;
+
+    private void Awake()
+    {
+        controls = new PlayerControls();
+    }
+
+    void OnEnable()
+    {
+        controls.Debug.Enable();
+    }
+
+    void OnDisable()
+    {
+        controls.Debug.Disable();
+    }
+
     void Start()
     {
         Orientation_Vent = transform.localEulerAngles;
@@ -41,17 +59,17 @@ public class Vent_Script : MonoBehaviour
             Orientation_Vent.z = -180f;
         }
 
-        /*if (Input.GetKey(KeyCode.KeypadPlus))
+        if (controls.Debug.Vent_Monte.triggered)
 
         {
             Orientation_Vent.z += Vitesse_Rotation_Vent * Time.deltaTime;
         }
 
-        if (Input.GetKey(KeyCode.KeypadMinus))
+        if (controls.Debug.Vent_Baisse.triggered)
 
         {
             Orientation_Vent.z -= Vitesse_Rotation_Vent * Time.deltaTime;
-        }*/
+        }
 
         transform.localEulerAngles = Orientation_Vent;
     }

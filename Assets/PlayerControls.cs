@@ -125,6 +125,90 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Debug"",
+            ""id"": ""37f4b3eb-133f-45b2-9764-11494eaf4f7a"",
+            ""actions"": [
+                {
+                    ""name"": ""Vent_Monte"",
+                    ""type"": ""Button"",
+                    ""id"": ""f3d3ace0-759f-4638-9616-0996bfb45a08"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Vent_Baisse"",
+                    ""type"": ""Button"",
+                    ""id"": ""b7ead1ce-2617-4a8f-96e5-637acb9d2198"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Voile_Droite"",
+                    ""type"": ""Button"",
+                    ""id"": ""23c52723-feb2-4fe7-a837-53da4b3f1d8c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Voile_Gauche"",
+                    ""type"": ""Button"",
+                    ""id"": ""d03a30ab-46ef-4a0a-bb95-08e511d9e630"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""0de3cfcc-fc37-4c17-aa4a-172663544893"",
+                    ""path"": ""<Keyboard>/numpadPlus"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Vent_Monte"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""28545400-2b8a-4b1f-8e03-70282fe88c9a"",
+                    ""path"": ""<Keyboard>/numpad6"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Voile_Droite"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""678c45a8-f659-4c82-ade8-39cc83d63c02"",
+                    ""path"": ""<Keyboard>/numpad9"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Voile_Gauche"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""516fba90-213d-44ba-a3c9-596b70ed1385"",
+                    ""path"": ""<Keyboard>/numpadMinus"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Vent_Baisse"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -133,6 +217,12 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         m_Gouvernail = asset.FindActionMap("Gouvernail", throwIfNotFound: true);
         m_Gouvernail_RotateBarre = m_Gouvernail.FindAction("RotateBarre", throwIfNotFound: true);
         m_Gouvernail_Message = m_Gouvernail.FindAction("Message", throwIfNotFound: true);
+        // Debug
+        m_Debug = asset.FindActionMap("Debug", throwIfNotFound: true);
+        m_Debug_Vent_Monte = m_Debug.FindAction("Vent_Monte", throwIfNotFound: true);
+        m_Debug_Vent_Baisse = m_Debug.FindAction("Vent_Baisse", throwIfNotFound: true);
+        m_Debug_Voile_Droite = m_Debug.FindAction("Voile_Droite", throwIfNotFound: true);
+        m_Debug_Voile_Gauche = m_Debug.FindAction("Voile_Gauche", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -219,9 +309,73 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         }
     }
     public GouvernailActions @Gouvernail => new GouvernailActions(this);
+
+    // Debug
+    private readonly InputActionMap m_Debug;
+    private IDebugActions m_DebugActionsCallbackInterface;
+    private readonly InputAction m_Debug_Vent_Monte;
+    private readonly InputAction m_Debug_Vent_Baisse;
+    private readonly InputAction m_Debug_Voile_Droite;
+    private readonly InputAction m_Debug_Voile_Gauche;
+    public struct DebugActions
+    {
+        private @PlayerControls m_Wrapper;
+        public DebugActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Vent_Monte => m_Wrapper.m_Debug_Vent_Monte;
+        public InputAction @Vent_Baisse => m_Wrapper.m_Debug_Vent_Baisse;
+        public InputAction @Voile_Droite => m_Wrapper.m_Debug_Voile_Droite;
+        public InputAction @Voile_Gauche => m_Wrapper.m_Debug_Voile_Gauche;
+        public InputActionMap Get() { return m_Wrapper.m_Debug; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(DebugActions set) { return set.Get(); }
+        public void SetCallbacks(IDebugActions instance)
+        {
+            if (m_Wrapper.m_DebugActionsCallbackInterface != null)
+            {
+                @Vent_Monte.started -= m_Wrapper.m_DebugActionsCallbackInterface.OnVent_Monte;
+                @Vent_Monte.performed -= m_Wrapper.m_DebugActionsCallbackInterface.OnVent_Monte;
+                @Vent_Monte.canceled -= m_Wrapper.m_DebugActionsCallbackInterface.OnVent_Monte;
+                @Vent_Baisse.started -= m_Wrapper.m_DebugActionsCallbackInterface.OnVent_Baisse;
+                @Vent_Baisse.performed -= m_Wrapper.m_DebugActionsCallbackInterface.OnVent_Baisse;
+                @Vent_Baisse.canceled -= m_Wrapper.m_DebugActionsCallbackInterface.OnVent_Baisse;
+                @Voile_Droite.started -= m_Wrapper.m_DebugActionsCallbackInterface.OnVoile_Droite;
+                @Voile_Droite.performed -= m_Wrapper.m_DebugActionsCallbackInterface.OnVoile_Droite;
+                @Voile_Droite.canceled -= m_Wrapper.m_DebugActionsCallbackInterface.OnVoile_Droite;
+                @Voile_Gauche.started -= m_Wrapper.m_DebugActionsCallbackInterface.OnVoile_Gauche;
+                @Voile_Gauche.performed -= m_Wrapper.m_DebugActionsCallbackInterface.OnVoile_Gauche;
+                @Voile_Gauche.canceled -= m_Wrapper.m_DebugActionsCallbackInterface.OnVoile_Gauche;
+            }
+            m_Wrapper.m_DebugActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @Vent_Monte.started += instance.OnVent_Monte;
+                @Vent_Monte.performed += instance.OnVent_Monte;
+                @Vent_Monte.canceled += instance.OnVent_Monte;
+                @Vent_Baisse.started += instance.OnVent_Baisse;
+                @Vent_Baisse.performed += instance.OnVent_Baisse;
+                @Vent_Baisse.canceled += instance.OnVent_Baisse;
+                @Voile_Droite.started += instance.OnVoile_Droite;
+                @Voile_Droite.performed += instance.OnVoile_Droite;
+                @Voile_Droite.canceled += instance.OnVoile_Droite;
+                @Voile_Gauche.started += instance.OnVoile_Gauche;
+                @Voile_Gauche.performed += instance.OnVoile_Gauche;
+                @Voile_Gauche.canceled += instance.OnVoile_Gauche;
+            }
+        }
+    }
+    public DebugActions @Debug => new DebugActions(this);
     public interface IGouvernailActions
     {
         void OnRotateBarre(InputAction.CallbackContext context);
         void OnMessage(InputAction.CallbackContext context);
+    }
+    public interface IDebugActions
+    {
+        void OnVent_Monte(InputAction.CallbackContext context);
+        void OnVent_Baisse(InputAction.CallbackContext context);
+        void OnVoile_Droite(InputAction.CallbackContext context);
+        void OnVoile_Gauche(InputAction.CallbackContext context);
     }
 }
