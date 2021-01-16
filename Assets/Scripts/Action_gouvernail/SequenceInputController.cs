@@ -53,8 +53,8 @@ public class SequenceInputController : MonoBehaviour
     {
         controls = new PlayerControls();
 
-        /*controls.Gouvernail.RotateBarre.performed += ctx => stickPos = ctx.ReadValue<Vector2>();
-        controls.Gouvernail.RotateBarre.canceled += ctx => stickPos = Vector2.zero;*/
+        controls.Gouvernail.RotateBarre.performed += ctx => stickPos = ctx.ReadValue<Vector2>();
+        controls.Gouvernail.RotateBarre.canceled += ctx => stickPos = Vector2.zero;
         controls.Gouvernail.Message.performed += ctx => OnMessage();
     }
 
@@ -95,7 +95,6 @@ public class SequenceInputController : MonoBehaviour
 
     private void Update()
     {
-        stickPos = controls.Gouvernail.RotateBarre.ReadValue<Vector2>();
         //Debug.Log(stickPos);
 
         regionActuelle = ObtenirStickRegion(stickPos);
