@@ -91,7 +91,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void AfficherCarteBateau()
     {
-        ChargerScene("Scenes/ScenesTest/Deplacement_personnage");
+        ChargerScene("Scenes/ScenesTest/Integration_deplacements");
     }
     
     /// <summary>
