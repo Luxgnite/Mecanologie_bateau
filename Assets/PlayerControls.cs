@@ -125,6 +125,90 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Debug"",
+            ""id"": ""0a1462b5-bdc9-4ac9-9f33-962379d9b166"",
+            ""actions"": [
+                {
+                    ""name"": ""Voile_Gauche"",
+                    ""type"": ""Button"",
+                    ""id"": ""47a46edd-578e-4360-8548-72249cae29ac"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Voile_Droite"",
+                    ""type"": ""Button"",
+                    ""id"": ""d0b76973-a486-47d4-b9c4-b71d99f199ab"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Gouvernail_Gauche"",
+                    ""type"": ""Button"",
+                    ""id"": ""4480e11a-b09c-4da9-b3e5-2900625f4349"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Hold""
+                },
+                {
+                    ""name"": ""Gouvernail_Droite"",
+                    ""type"": ""Button"",
+                    ""id"": ""d343bb88-8296-4e43-919b-d61ea1ef506d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Hold""
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""6a95af0a-4a53-4c34-a539-117ec52389f6"",
+                    ""path"": ""<Keyboard>/numpad9"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Voile_Gauche"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8b6abea7-345b-476c-a0df-265589326799"",
+                    ""path"": ""<Keyboard>/numpad6"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Voile_Droite"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a5bee9f0-fae7-42f8-91af-ebfaeebad82b"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Gouvernail_Gauche"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""60918fb9-fe2b-4302-9b03-52e26ffcaae0"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Gouvernail_Droite"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -133,6 +217,12 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         m_Gouvernail = asset.FindActionMap("Gouvernail", throwIfNotFound: true);
         m_Gouvernail_RotateBarre = m_Gouvernail.FindAction("RotateBarre", throwIfNotFound: true);
         m_Gouvernail_Message = m_Gouvernail.FindAction("Message", throwIfNotFound: true);
+        // Debug
+        m_Debug = asset.FindActionMap("Debug", throwIfNotFound: true);
+        m_Debug_Voile_Gauche = m_Debug.FindAction("Voile_Gauche", throwIfNotFound: true);
+        m_Debug_Voile_Droite = m_Debug.FindAction("Voile_Droite", throwIfNotFound: true);
+        m_Debug_Gouvernail_Gauche = m_Debug.FindAction("Gouvernail_Gauche", throwIfNotFound: true);
+        m_Debug_Gouvernail_Droite = m_Debug.FindAction("Gouvernail_Droite", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -219,9 +309,73 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         }
     }
     public GouvernailActions @Gouvernail => new GouvernailActions(this);
+
+    // Debug
+    private readonly InputActionMap m_Debug;
+    private IDebugActions m_DebugActionsCallbackInterface;
+    private readonly InputAction m_Debug_Voile_Gauche;
+    private readonly InputAction m_Debug_Voile_Droite;
+    private readonly InputAction m_Debug_Gouvernail_Gauche;
+    private readonly InputAction m_Debug_Gouvernail_Droite;
+    public struct DebugActions
+    {
+        private @PlayerControls m_Wrapper;
+        public DebugActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Voile_Gauche => m_Wrapper.m_Debug_Voile_Gauche;
+        public InputAction @Voile_Droite => m_Wrapper.m_Debug_Voile_Droite;
+        public InputAction @Gouvernail_Gauche => m_Wrapper.m_Debug_Gouvernail_Gauche;
+        public InputAction @Gouvernail_Droite => m_Wrapper.m_Debug_Gouvernail_Droite;
+        public InputActionMap Get() { return m_Wrapper.m_Debug; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(DebugActions set) { return set.Get(); }
+        public void SetCallbacks(IDebugActions instance)
+        {
+            if (m_Wrapper.m_DebugActionsCallbackInterface != null)
+            {
+                @Voile_Gauche.started -= m_Wrapper.m_DebugActionsCallbackInterface.OnVoile_Gauche;
+                @Voile_Gauche.performed -= m_Wrapper.m_DebugActionsCallbackInterface.OnVoile_Gauche;
+                @Voile_Gauche.canceled -= m_Wrapper.m_DebugActionsCallbackInterface.OnVoile_Gauche;
+                @Voile_Droite.started -= m_Wrapper.m_DebugActionsCallbackInterface.OnVoile_Droite;
+                @Voile_Droite.performed -= m_Wrapper.m_DebugActionsCallbackInterface.OnVoile_Droite;
+                @Voile_Droite.canceled -= m_Wrapper.m_DebugActionsCallbackInterface.OnVoile_Droite;
+                @Gouvernail_Gauche.started -= m_Wrapper.m_DebugActionsCallbackInterface.OnGouvernail_Gauche;
+                @Gouvernail_Gauche.performed -= m_Wrapper.m_DebugActionsCallbackInterface.OnGouvernail_Gauche;
+                @Gouvernail_Gauche.canceled -= m_Wrapper.m_DebugActionsCallbackInterface.OnGouvernail_Gauche;
+                @Gouvernail_Droite.started -= m_Wrapper.m_DebugActionsCallbackInterface.OnGouvernail_Droite;
+                @Gouvernail_Droite.performed -= m_Wrapper.m_DebugActionsCallbackInterface.OnGouvernail_Droite;
+                @Gouvernail_Droite.canceled -= m_Wrapper.m_DebugActionsCallbackInterface.OnGouvernail_Droite;
+            }
+            m_Wrapper.m_DebugActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @Voile_Gauche.started += instance.OnVoile_Gauche;
+                @Voile_Gauche.performed += instance.OnVoile_Gauche;
+                @Voile_Gauche.canceled += instance.OnVoile_Gauche;
+                @Voile_Droite.started += instance.OnVoile_Droite;
+                @Voile_Droite.performed += instance.OnVoile_Droite;
+                @Voile_Droite.canceled += instance.OnVoile_Droite;
+                @Gouvernail_Gauche.started += instance.OnGouvernail_Gauche;
+                @Gouvernail_Gauche.performed += instance.OnGouvernail_Gauche;
+                @Gouvernail_Gauche.canceled += instance.OnGouvernail_Gauche;
+                @Gouvernail_Droite.started += instance.OnGouvernail_Droite;
+                @Gouvernail_Droite.performed += instance.OnGouvernail_Droite;
+                @Gouvernail_Droite.canceled += instance.OnGouvernail_Droite;
+            }
+        }
+    }
+    public DebugActions @Debug => new DebugActions(this);
     public interface IGouvernailActions
     {
         void OnRotateBarre(InputAction.CallbackContext context);
         void OnMessage(InputAction.CallbackContext context);
+    }
+    public interface IDebugActions
+    {
+        void OnVoile_Gauche(InputAction.CallbackContext context);
+        void OnVoile_Droite(InputAction.CallbackContext context);
+        void OnGouvernail_Gauche(InputAction.CallbackContext context);
+        void OnGouvernail_Droite(InputAction.CallbackContext context);
     }
 }

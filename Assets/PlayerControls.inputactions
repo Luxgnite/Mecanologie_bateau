@@ -112,6 +112,90 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Debug",
+            "id": "0a1462b5-bdc9-4ac9-9f33-962379d9b166",
+            "actions": [
+                {
+                    "name": "Voile_Gauche",
+                    "type": "Button",
+                    "id": "47a46edd-578e-4360-8548-72249cae29ac",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Voile_Droite",
+                    "type": "Button",
+                    "id": "d0b76973-a486-47d4-b9c4-b71d99f199ab",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Gouvernail_Gauche",
+                    "type": "Button",
+                    "id": "4480e11a-b09c-4da9-b3e5-2900625f4349",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Hold"
+                },
+                {
+                    "name": "Gouvernail_Droite",
+                    "type": "Button",
+                    "id": "d343bb88-8296-4e43-919b-d61ea1ef506d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Hold"
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "6a95af0a-4a53-4c34-a539-117ec52389f6",
+                    "path": "<Keyboard>/numpad9",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Voile_Gauche",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8b6abea7-345b-476c-a0df-265589326799",
+                    "path": "<Keyboard>/numpad6",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Voile_Droite",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a5bee9f0-fae7-42f8-91af-ebfaeebad82b",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Gouvernail_Gauche",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "60918fb9-fe2b-4302-9b03-52e26ffcaae0",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Gouvernail_Droite",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []

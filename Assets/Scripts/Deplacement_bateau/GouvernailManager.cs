@@ -7,11 +7,31 @@ public class GouvernailManager : MonoBehaviour
     public Vector3 Orientation_Gouvernail;
     public float Vitesse_Rotation_Gouvernail = 10;
 
-    public  Vector3 Orientation_Bateau_Empty;
+    public Vector3 Orientation_Bateau_Empty;
     GameObject Bateau;
     GameObject Bateau_Empty;
     //Angle que le gourvernail doit effectuer
     public float angleATourner;
+
+    [Header("Incrément d'angle pour les touches de debug")]
+    public float debugAngle = 2f;
+
+    PlayerControls controls;
+
+    private void Awake()
+    {
+        controls = new PlayerControls();
+    }
+
+    void OnEnable()
+    {
+        controls.Debug.Enable();
+    }
+
+    void OnDisable()
+    {
+        controls.Debug.Disable();
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -25,12 +45,13 @@ public class GouvernailManager : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {        
+    {
+        //Debug
+        if (controls.Debug.Gouvernail_Gauche.phase == UnityEngine.InputSystem.InputActionPhase.Performed)
+            TournerGaucheGouvernail(debugAngle);
+        if (controls.Debug.Gouvernail_Droite.phase == UnityEngine.InputSystem.InputActionPhase.Performed)
+            TournerDroiteGouvernail(debugAngle);
 
-        /*if (Input.GetKey(KeyCode.Z))
-            TournerGaucheGouvernail();
-        if (Input.GetKey(KeyCode.S))
-            TournerDroiteGouvernail();*/
         if (/*!Input.GetKey(KeyCode.Z) && !Input.GetKey(KeyCode.S)*/ angleATourner == 0 && Orientation_Gouvernail.z != 0f)
             Orientation_Gouvernail_Void();
 

@@ -125,6 +125,8 @@ MonoBehaviour:
   Orientation_Gouvernail: {x: 0, y: 0, z: 0}
   Vitesse_Rotation_Gouvernail: 10
   Orientation_Bateau_Empty: {x: 0, y: 0, z: 0}
+  angleATourner: 0
+  debugAngle: 2
 --- !u!1 &1447296968
 GameObject:
   m_ObjectHideFlags: 0

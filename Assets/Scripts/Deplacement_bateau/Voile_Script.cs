@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Voile_Script : MonoBehaviour
 {
@@ -16,6 +17,23 @@ public class Voile_Script : MonoBehaviour
     public float Vitesse_Rotation_Voile = 5;
     public float Difference_Orientation_Voile;
     public float Force_Voile;
+
+    PlayerControls controls;
+
+    private void Awake()
+    {
+        controls = new PlayerControls();
+    }
+
+    void OnEnable()
+    {
+        controls.Debug.Enable();
+    }
+
+    void OnDisable()
+    {
+        controls.Debug.Disable();
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -41,14 +59,14 @@ public class Voile_Script : MonoBehaviour
 
 
 
-        /*if (Input.GetKey(KeyCode.Keypad9) && Orientation_Voile.z < 90f)
+        if(controls.Debug.Voile_Gauche.triggered && Orientation_Voile.z < 90f)
         {
             Orientation_Voile.z += Vitesse_Rotation_Voile * Time.deltaTime;
         }
-        if (Input.GetKey(KeyCode.Keypad6) && Orientation_Voile.z > -90f)
+        else if (controls.Debug.Voile_Droite.triggered && Orientation_Voile.z > -90f)
         {
             Orientation_Voile.z -= Vitesse_Rotation_Voile * Time.deltaTime;
-        }*/
+        }
 
         transform.localEulerAngles = Orientation_Voile;
 
@@ -57,8 +75,6 @@ public class Voile_Script : MonoBehaviour
 
     public void Force_Voile_Void()
     {
-
-
         Force_Voile = 1;
             //Force_Voile = Vent.GetComponent<Vent_Script>().Force_Vent * Difference_Orientation_Voile;
     }
